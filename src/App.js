@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Auth from './Components/Auth';
+import Callback from './Components/Callback';
+import UserTable from './Components/UserTable';
 
-function App() {
+const App = () => {
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem('access_token');
+    console.log('Stored Token:', storedToken); // Debugging: Log the stored token
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
+  // Temporary logging instead of navigation
+  console.log('Current Token:', token);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Auth />} />
+        <Route path="/callback" element={<Callback setToken={setToken} />} />
+        <Route path="/" element={token ? <UserTable token={token} /> : <Navigate to="/login" />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
