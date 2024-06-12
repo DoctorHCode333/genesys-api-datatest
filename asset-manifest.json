@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/cognizant-task-1/static/css/main.c57b365a.css",
-    "main.js": "/cognizant-task-1/static/js/main.075a8966.js",
-    "static/js/453.0bebcb41.chunk.js": "/cognizant-task-1/static/js/453.0bebcb41.chunk.js",
-    "index.html": "/cognizant-task-1/index.html",
-    "main.c57b365a.css.map": "/cognizant-task-1/static/css/main.c57b365a.css.map",
-    "main.075a8966.js.map": "/cognizant-task-1/static/js/main.075a8966.js.map",
-    "453.0bebcb41.chunk.js.map": "/cognizant-task-1/static/js/453.0bebcb41.chunk.js.map"
+    "main.css": "/genesys-api-datatest/static/css/main.c57b365a.css",
+    "main.js": "/genesys-api-datatest/static/js/main.23fe9dd6.js",
+    "static/js/453.0bebcb41.chunk.js": "/genesys-api-datatest/static/js/453.0bebcb41.chunk.js",
+    "index.html": "/genesys-api-datatest/index.html",
+    "main.c57b365a.css.map": "/genesys-api-datatest/static/css/main.c57b365a.css.map",
+    "main.23fe9dd6.js.map": "/genesys-api-datatest/static/js/main.23fe9dd6.js.map",
+    "453.0bebcb41.chunk.js.map": "/genesys-api-datatest/static/js/453.0bebcb41.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c57b365a.css",
-    "static/js/main.075a8966.js"
+    "static/js/main.23fe9dd6.js"
   ]
 }
