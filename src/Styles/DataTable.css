@@ -1,9 +1,25 @@
 /* UserTable.css */
 
+
+.download-button {
+  background-color: #80cbc4; /* Light blue background color */
+  color: white; /* White text color */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Padding inside the button */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  font-size: 16px; /* Font size */
+  transition: background-color 0.3s ease; /* Smooth transition for background color change */
+}
+
+.download-button:hover {
+  background-color: #4db6ac; /* Darker blue on hover */
+}
+
 .table-container {
-    max-width: 1000px;
+    max-width: 1500px;
     margin: 20px auto;
-    padding: 10px;
+    padding: 5px;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -23,7 +39,7 @@
   
   .user-table th,
   .user-table td {
-    padding: 12px 15px;
+    padding: 12px 8px;
     text-align: left;
     border: 1px solid #ddd;
   }

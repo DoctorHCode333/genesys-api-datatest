@@ -1,6 +1,4 @@
-// src/UserTable.js
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { useTable } from 'react-table';
 import '../Styles/UserTable.css'; // Import CSS file for styling
@@ -25,7 +23,7 @@ const UserTable = ({ token }) => {
     fetchData();
   }, [token]);
 
-  const columns = React.useMemo(
+  const columns = useMemo(
     () => [
       {
         Header: 'ID',
@@ -54,24 +52,28 @@ const UserTable = ({ token }) => {
   } = tableInstance;
 
   return (
-    <div className="table-container"> {/* Apply styling to the table container */}
-      <table className="user-table" {...getTableProps()}> {/* Apply styling to the table */}
+    <div className="table-container">
+      <table className="user-table">
         <thead>
           {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
+            <tr key={`header-${headerGroup.id}`}>
               {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                <th key={`header-${column.id}`}>
+                  {column.render('Header')}
+                </th>
               ))}
             </tr>
           ))}
         </thead>
-        <tbody {...getTableBodyProps()}>
+        <tbody>
           {rows.map(row => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr key={`row-${row.id}`}>
                 {row.cells.map(cell => (
-                  <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  <td key={`cell-${cell.column.id}`}>
+                    {cell.render('Cell')}
+                  </td>
                 ))}
               </tr>
             );

@@ -2,29 +2,40 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Auth from './Components/Auth';
 import Callback from './Components/Callback';
-import UserTable from './Components/UserTable';
+import DataTable from './Components/DataTable';
+import PerformanceData from './Components/PerformanceData';
+import './App.css';
 
 const App = () => {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token') || '');
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('access_token');
-    console.log('Stored Token:', storedToken); // Debugging: Log the stored token
-    if (storedToken) {
-      setToken(storedToken);
+    if (token) {
+      localStorage.setItem('token', token);
     }
-  }, []);
-
-  // Temporary logging instead of navigation
-  console.log('Current Token:', token);
+  }, [token]);
 
   return (
     <Router>
-      <Routes>
-        <Route path="/login" element={<Auth />} />
-        <Route path="/callback" element={<Callback setToken={setToken} />} />
-        <Route path="/" element={token ? <UserTable token={token} /> : <Navigate to="/login" />} />
-      </Routes>
+      <div className="container">
+        <Routes>
+          <Route path="/login" element={<Auth />} />
+          <Route path="/callback" element={<Callback setToken={setToken} />} />
+          <Route path="/" element={token ? (
+            <div>
+              <h1>Welcome to Genesys Cloud Dashboard</h1>
+              <div className="user-table">
+                <DataTable token={token} />
+              </div>
+              <div className="chart-container">
+                <PerformanceData token={token} />
+              </div>
+            </div>
+          ) : (
+            <Navigate to="/login" />
+          )} />
+        </Routes>
+      </div>
     </Router>
   );
 };
