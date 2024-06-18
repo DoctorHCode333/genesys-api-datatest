@@ -8,6 +8,7 @@ const DataTable = ({ token }) => {
   const [users, setUsers] = useState([]);
   const [externalContacts, setExternalContacts] = useState([]);
   const [conversations, setConversations] = useState([]);
+  const [queues, setQueues] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -18,6 +19,7 @@ const DataTable = ({ token }) => {
           },
         });
         setUsers(response.data.entities);
+        
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -44,6 +46,23 @@ const DataTable = ({ token }) => {
           },
         });
         setConversations(response.data.entities);
+        
+        
+      } catch (error) {
+        console.error('Error fetching conversations:', error);
+      }
+    };
+
+    const fetchQueues = async () => {
+      try {
+        const response = await axios.get('https://api.mypurecloud.com/api/v2/routing/queues', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+       
+        setQueues(response.data.entities);
+       
       } catch (error) {
         console.error('Error fetching conversations:', error);
       }
@@ -52,6 +71,7 @@ const DataTable = ({ token }) => {
     fetchUsers();
     fetchExternalContacts();
     fetchConversations();
+    fetchQueues();
   }, [token]);
 
   const userColumns = React.useMemo(() => [
@@ -99,7 +119,7 @@ const DataTable = ({ token }) => {
   const conversationColumns = React.useMemo(() => [
     {
       Header: 'ID',
-      accessor: 'id',
+      accessor: 'conversationId',
     },
     {
       Header: 'Name',
@@ -111,9 +131,33 @@ const DataTable = ({ token }) => {
     },
   ], []);
 
+  const queuesColumns = React.useMemo(() => [
+    {
+      Header: 'ID',
+      accessor: 'id',
+    },
+    {
+      Header: 'Name',
+      accessor: 'name',
+    },
+    {
+      Header: 'Division ID',
+      accessor: 'division.id',
+    },
+    {
+      Header: 'Date Created',
+      accessor: 'dateCreated',
+    },
+    {
+      Header: 'Member Count',
+      accessor: 'memberCount',
+    },
+  ], []);
+
   const userTable = useTable({ columns: userColumns, data: users });
   const contactTable = useTable({ columns: contactColumns, data: externalContacts });
   const conversationTable = useTable({ columns: conversationColumns, data: conversations });
+  const queuesTable = useTable({ columns: queuesColumns, data: queues });
 
   const renderTable = (tableInstance) => {
     const { headerGroups, rows, prepareRow } = tableInstance;
@@ -185,14 +229,18 @@ const DataTable = ({ token }) => {
       <h2>User Data</h2>
       <button className="download-button" onClick={() => downloadCsv(users, userColumns, 'users_data.csv')}>Download Users CSV</button>
       {renderTable(userTable)}
-
+  
       <h2>External Contacts</h2>
       <button className="download-button" onClick={() => downloadCsv(externalContacts, contactColumns, 'external_contacts_data.csv')}>Download External Contacts CSV</button>
       {renderTable(contactTable)}
-
-      <h2>Conversations</h2>
+      
+      {/* <h2>Conversations</h2>
       <button className="download-button" onClick={() => downloadCsv(conversations, conversationColumns, 'conversations_data.csv')}>Download Conversations CSV</button>
-      {renderTable(conversationTable)}
+      {renderTable(conversationTable)} */}
+
+      <h2>Queues Data</h2>
+      <button className="download-button" onClick={() => downloadCsv(queues, queuesColumns, 'queues_data.csv')}>Download Queues CSV</button>
+      {renderTable(queuesTable)}
     </div>
   );
 };

@@ -12,12 +12,12 @@ const Callback = ({ setToken }) => {
       const hash = window.location.hash.substring(1);
       const params = new URLSearchParams(hash);
       const accessToken = params.get('access_token');
+      const expiresIn = params.get('expires_in')
 
-      console.log('Access Token:', accessToken); // Debugging: Log the token
-
-      if (accessToken) {
-        localStorage.setItem('access_token', accessToken); // Store token in local storage
-        setToken(accessToken);
+      if (accessToken && expiresIn) {
+        const expiryTime = new Date().getTime() + parseInt(expiresIn,10)*1000;
+        // localStorage.setItem('access_token', accessToken); // Store token in local storage
+        setToken(accessToken,expiryTime);
         navigate('/'); // Redirect to the home page
       } else {
         throw new Error('Access token not found');

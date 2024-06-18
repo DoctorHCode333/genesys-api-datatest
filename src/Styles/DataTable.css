@@ -18,7 +18,7 @@
 
 .table-container {
     max-width: 1500px;
-    margin: 20px auto;
+    margin: 20px auto 100px;
     padding: 5px;
     border: 1px solid #ddd;
     border-radius: 8px;

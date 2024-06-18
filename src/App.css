@@ -20,13 +20,22 @@
 
 .container{
   margin:20px;
+  text-align: center;
 }
 
 h1{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 4rem;
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+h2{
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 2rem;
   text-align: center;
   margin-bottom: 40px;
 }
-
 .user-table,.chart-container {
   margin-bottom: 40px;
 }
